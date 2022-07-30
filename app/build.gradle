@@ -1,0 +1,21 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+}
+
+application {
+
+    mainClass = 'jlox_treewalk_interpreter.App'
+}
+
+tasks.named('test') {
+
+    useJUnitPlatform()
+}
