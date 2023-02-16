@@ -104,6 +104,25 @@ public class Scanner {
                 if (match('/')) {
                     // A comment goes til the end of the line
                     while (peek() != '\n' && !isAtEnd()) advance();
+
+                    // the start of the c-style block comment
+                } else if (match('*')) {
+                    boolean foundEnd = false;
+                    while (!foundEnd) {
+                        if (peek() == '\0') {
+                            Lox.error(line, "Unterminated C-style block comment.");
+                            return;
+                        }
+                        if (peek() == '*' && peekNext() == '/') {
+                            foundEnd = true;
+                            advance();
+                            advance();
+                        } else {
+                            if (peek() == '\n') line++;
+                            advance();
+                        }
+                    }
+                    // look for the closing */
                 } else {
                     addToken(SLASH);
                 }
