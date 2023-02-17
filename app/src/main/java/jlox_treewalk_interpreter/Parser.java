@@ -26,7 +26,31 @@ public class Parser {
     }
 
     private Expr comma() {
-        return parseLeftAssocBinaryOpSeries(this::equality, COMMA);
+        return parseLeftAssocBinaryOpSeries(this::ternary, COMMA);
+    }
+
+    private Expr ternary() {
+        Expr expr = equality();
+
+        while (true) {
+            if (match(QUESTION)) {
+                Expr middle = equality();
+                if (match(COLON)) {
+                    Expr right = equality();
+
+                    if (match(QUESTION)) {
+                        expr = new Expr.Ternary(expr, middle, right);
+                    } else {
+                        return new Expr.Ternary(expr, middle, right);
+                    }
+                } else {
+                    Lox.error(peek().line, "fuck");
+                    break;
+                }
+            }
+        }
+
+        return expr;
     }
 
     private Expr equality() {

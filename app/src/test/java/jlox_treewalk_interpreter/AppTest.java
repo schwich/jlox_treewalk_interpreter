@@ -27,4 +27,12 @@ public class AppTest {
         String sourceCode2 = "!(2 >= 3) + 5, 2 * 3 / 2 ";
         scanAndParseSourceCode(sourceCode2);
     }
+
+    @Test
+    public void parseExprWithTernaryOperator() {
+        String sourceCode = "true ? 2 : 3";
+        scanAndParseSourceCode(sourceCode);
+        String sourceCode2 = "true ? false : true ? 1 : 2";
+        scanAndParseSourceCode(sourceCode2);
+    }
 }
