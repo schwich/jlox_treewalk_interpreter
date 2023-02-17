@@ -4,11 +4,15 @@
 package jlox_treewalk_interpreter;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class AppTest {
-    @Test public void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+
+    @Test
+    public void parseExpression() {
+        String sourceCode = "!(2 >= 3) + 5 * 3 / 2 ";
+        Scanner scanner = new Scanner(sourceCode);
+        Parser parser = new Parser(scanner.scanTokens());
+        Expr expression = parser.parse();
+        System.out.println(new AstPrinter().print(expression));
     }
 }
