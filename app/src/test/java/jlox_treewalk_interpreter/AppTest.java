@@ -9,10 +9,12 @@ public class AppTest {
 
     @Test
     public void parseExpression() {
-        String sourceCode = "!(2 >= 3) + 5 * 3 / 2 ";
+        String sourceCode = "(2 - 3) + 5 * 3 / 2 ";
         Scanner scanner = new Scanner(sourceCode);
         Parser parser = new Parser(scanner.scanTokens());
         Expr expression = parser.parse();
-        System.out.println(new AstPrinter().print(expression));
+
+        Interpreter interpreter = new Interpreter();
+        interpreter.interpret(expression);
     }
 }
